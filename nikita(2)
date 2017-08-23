@@ -1,0 +1,33 @@
+import tensorflow as tf
+with tf.name_scope("LHS"):
+        a1=tf.constant(10)
+        a2=tf.constant(20)
+        a3=tf.constant(30)
+        LHS=tf.subtract(a1,a2)
+        result=tf.subtract(LHS,a3)
+        result1=tf.multiply(result,result)
+
+with tf.name_scope("b"):
+        res2=tf.multiply(a1,a1)
+        res3=tf.multiply(a2,a2)
+        res4=tf.multiply(a3,a3)
+with tf.name_scope("c"):
+        res5=tf.multiply(a1,a2)
+        res6=tf.multiply(2,res5)
+        res7=tf.multiply(a2,a3)
+        res8=tf.multiply(2,res7)
+        res9=tf.multiply (a1,a3)
+        res10=tf.multiply(2,res9)
+with tf.name_scope("RHS"):
+        res11=tf.add(res2,res3)
+        res12=tf.add(res11,res4)
+        res13=tf.subtract(res12,res6)
+        res14=tf.add(res13,res8)
+        res15=tf.subtract(res14,res10)
+        
+with tf.Session( ) as sess:
+    writer=tf.summary.FileWriter("/tmp/tboard/nikita2",sess.graph)
+    print(sess.run(result1))
+    print(sess.run(res15))
+    writer.close()
+
