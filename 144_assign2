@@ -1,0 +1,44 @@
+import tensorflow as tf
+a=tf.constant([2,4.0,6,8])
+b=tf.constant([15,5.0,1,2])
+
+k=tf.reduce_mean(a)
+l=tf.reduce_mean(b)
+
+sesss=tf.Session()
+print(sesss.run(k))
+sesss=tf.Session()
+print(sesss.run(l))
+
+m=tf.subtract(a,k)
+n=tf.subtract(b,l)
+
+o=tf.square(m)
+p=tf.square(n)
+
+variance=tf.reduce_sum(o)
+
+sesss=tf.Session()
+print(sesss.run(variance))
+
+r=tf.subtract(a,k)
+s=tf.subtract(b,l)
+
+t=tf.multiply(r,s)
+
+covariance=tf.reduce_sum(t)
+sesss=tf.Session()
+print(sesss.run(covariance))
+
+m_graph=tf.div(covariance,variance)
+sesss=tf.Session()
+print(sesss.run(m_graph))
+
+p1=tf.multiply(m_graph,k)
+
+c=tf.subtract(l,p1)
+
+with tf.Session() as sess:
+    writer=tf.summary.FileWriter("/tmp/tboard/fa2",sess.graph)
+    print(sess.run(c))
+    writer.close()
